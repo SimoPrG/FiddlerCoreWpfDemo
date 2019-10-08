@@ -37,6 +37,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetZip, Version=1.13.4.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.13.4\lib\net40\DotNetZip.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -73,11 +76,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Behavior\RelayCommand.cs" />
+    <Compile Include="Helpers\DateTimeProvider.cs" />
+    <Compile Include="Helpers\IDateTimeProvider.cs" />
     <Compile Include="Infrastructure\Common.cs" />
     <Compile Include="Infrastructure\FiddlerCoreConfig.cs" />
     <Compile Include="Infrastructure\HttpClientConfig.cs" />
     <Compile Include="Infrastructure\HttpClientProxy.cs" />
     <Compile Include="Infrastructure\NetworkConnectionsConfig.cs" />
+    <Compile Include="Infrastructure\SAZProvider.cs" />
+    <Compile Include="Infrastructure\SessionsPersister.cs" />
     <Compile Include="Services\HttpClientService.cs" />
     <Compile Include="Services\IHttpClientService.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />

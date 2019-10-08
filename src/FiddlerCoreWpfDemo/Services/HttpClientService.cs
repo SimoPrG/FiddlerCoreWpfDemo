@@ -7,7 +7,7 @@ namespace FiddlerCoreWpfDemo.Services
     {
         public async Task<string> GetAsync(string uri)
         {
-            var response = await HttpClientConfig.HttpClient.GetAsync(uri);
+            var response = await HttpClientConfig.HttpClient.GetAsync(uri).ConfigureAwait(false);
 
             return
 $@"Request:

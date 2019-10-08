@@ -1,15 +1,24 @@
 ﻿using Fiddler;
+using FiddlerCoreWpfDemo.Helpers;
 using System;
 using System.IO;
+using System.Threading.Tasks;
+using System.Windows;
 using Telerik.NetworkConnections;
 
 namespace FiddlerCoreWpfDemo.Infrastructure
 {
     public class FiddlerCoreConfig : IDisposable
     {
+        private readonly SessionsPersister sessionsPersister = new SessionsPersister(new DateTimeProvider());
+
         public void ConfigureFiddlerCore(ProxySettings upstreamProxySettings)
         {
             this.EnsureRootCertificate();
+
+            this.SetSAZProvider();
+
+            FiddlerApplication.BeforeRequest += this.sessionsPersister.AddSession;
 
             FiddlerApplication.Prefs.SetBoolPref("fiddler.ui.rules.bufferresponses", false);
 
@@ -27,6 +36,9 @@ namespace FiddlerCoreWpfDemo.Infrastructure
         public void Dispose()
         {
             FiddlerApplication.Shutdown();
+            FiddlerApplication.BeforeRequest -= this.sessionsPersister.AddSession;
+            this.sessionsPersister.Cancel();
+            this.sessionsPersister.PersistSessionsAsync(false).GetAwaiter().GetResult();
         }
 
         private void EnsureRootCertificate()
@@ -52,6 +64,11 @@ namespace FiddlerCoreWpfDemo.Infrastructure
             {
                 CertMaker.trustRootCert();
             }
+        }
+
+        private void SetSAZProvider()
+        {
+            FiddlerApplication.oSAZProvider = new SAZProvider();
         }
     }
 }

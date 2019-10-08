@@ -6,6 +6,9 @@
 # Certificates
 *.p12
 
+# Fiddler SAZ files
+*.saz
+
 # User-specific files
 *.rsuser
 *.suo
