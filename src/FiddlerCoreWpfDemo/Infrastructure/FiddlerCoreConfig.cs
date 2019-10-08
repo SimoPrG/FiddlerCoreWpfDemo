@@ -1,14 +1,14 @@
 ﻿using Fiddler;
-using FiddlerCoreWpfDemo.Helpers;
 using System;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 using Telerik.NetworkConnections;
 
 namespace FiddlerCoreWpfDemo.Infrastructure
 {
     public class FiddlerCoreConfig : IDisposable
     {
-        private readonly SessionsPersister sessionsPersister = new SessionsPersister(new DateTimeProvider());
+        private readonly SessionsPersister sessionsPersister = new SessionsPersister();
 
         public void ConfigureFiddlerCore(ProxySettings upstreamProxySettings)
         {
@@ -58,9 +58,22 @@ namespace FiddlerCoreWpfDemo.Infrastructure
                 certificateProvider.WriteRootCertificateAndPrivateKeyToPkcs12File(rootCertificatePath, rootCertificatePassword);
             }
 
-            if (!CertMaker.rootCertIsTrusted())
+            X509Certificate2 rootCertificate = CertMaker.GetRootCertificate();
+
+            X509Store store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
+            try
             {
-                CertMaker.trustRootCert();
+                store.Open(OpenFlags.MaxAllowed);
+
+                bool containsCertificate = store.Certificates.Contains(rootCertificate);
+                if (!containsCertificate)
+                {
+                    store.Add(rootCertificate);
+                }
+            }
+            finally
+            {
+                store.Close();
             }
         }
 

@@ -76,14 +76,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Behavior\RelayCommand.cs" />
-    <Compile Include="Helpers\DateTimeProvider.cs" />
-    <Compile Include="Helpers\IDateTimeProvider.cs" />
     <Compile Include="Infrastructure\Common.cs" />
     <Compile Include="Infrastructure\FiddlerCoreConfig.cs" />
     <Compile Include="Infrastructure\HttpClientConfig.cs" />
     <Compile Include="Infrastructure\HttpClientProxy.cs" />
     <Compile Include="Infrastructure\NetworkConnectionsConfig.cs" />
     <Compile Include="Infrastructure\SAZProvider.cs" />
+    <Compile Include="Infrastructure\SAZReader.cs" />
+    <Compile Include="Infrastructure\SAZWriter.cs" />
     <Compile Include="Infrastructure\SessionsPersister.cs" />
     <Compile Include="Services\HttpClientService.cs" />
     <Compile Include="Services\IHttpClientService.cs" />

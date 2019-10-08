@@ -6,13 +6,26 @@
         xmlns:vms="clr-namespace:FiddlerCoreWpfDemo.ViewModels"
         xmlns:local="clr-namespace:FiddlerCoreWpfDemo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" MinHeight="200" MinWidth="200">
     <Window.DataContext>
         <vms:HttpMessageViewModel />
     </Window.DataContext>
     <Grid>
-        <TextBox Text="{Binding Url}" HorizontalAlignment="Right" Height="23" Margin="0,0,60,386" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="722" />
-        <Button Command="{Binding Get}" Content="GET" Margin="0,0,10,386" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="45"/>
-        <TextBox Text="{Binding Response}" Height="371" Margin="0,0,10,10" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" VerticalAlignment="Bottom" IsReadOnly="True" HorizontalAlignment="Right" Width="772"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Text="{Binding Url}" Height="23" TextWrapping="Wrap" Margin="10, 10, 5, 5" />
+            <Button Grid.Column="1" Command="{Binding Get}" Content="GET" Height="23" Width="75" Margin="5, 10, 10, 5"/>
+        </Grid>
+        
+        <TextBox Grid.Row="1" Text="{Binding Response}" Margin="10, 5, 10, 10" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" IsReadOnly="True"/>
     </Grid>
 </Window>

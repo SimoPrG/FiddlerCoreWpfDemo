@@ -1,5 +1,4 @@
 ﻿using Fiddler;
-using FiddlerCoreWpfDemo.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,12 +19,9 @@ namespace FiddlerCoreWpfDemo.Infrastructure
         private readonly string sazFilesPassword = string.Empty;
 
         private readonly TimeSpan interval = new TimeSpan(hours: 0, minutes: 0, seconds: 10);
-        private readonly IDateTimeProvider dateTime;
 
-        public SessionsPersister(IDateTimeProvider dateTime)
+        public SessionsPersister()
         {
-            this.dateTime = dateTime;
-
             Directory.CreateDirectory(this.sazFilesDir);
 
             Task t = this.PeriodicPersistAsync(this.cancellationTokenSource.Token);
@@ -51,7 +47,7 @@ namespace FiddlerCoreWpfDemo.Infrastructure
 
         public async Task PersistSessionsAsync(bool onlyCompleted = true)
         {
-            string filename = $"{this.sazFilesDir}{Path.DirectorySeparatorChar}{this.dateTime.Now.ToString("hh-mm-ss")}.saz";
+            string filename = Path.Combine(this.sazFilesDir, $"{DateTime.Now:hh-mm-ss}.saz");
 
             await Task.Run(() =>
             {
