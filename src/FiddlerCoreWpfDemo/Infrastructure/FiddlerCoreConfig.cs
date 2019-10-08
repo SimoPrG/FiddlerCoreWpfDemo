@@ -1,6 +1,7 @@
 ﻿using Fiddler;
 using System;
 using System.IO;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using Telerik.NetworkConnections;
 
@@ -70,6 +71,10 @@ namespace FiddlerCoreWpfDemo.Infrastructure
                 {
                     store.Add(rootCertificate);
                 }
+            }
+            catch (CryptographicException ex)
+            {
+                // Handle the exception when the user did not trust the root certificate.
             }
             finally
             {

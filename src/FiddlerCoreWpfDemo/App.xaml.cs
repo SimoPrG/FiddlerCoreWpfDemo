@@ -39,7 +39,6 @@ namespace FiddlerCoreWpfDemo
                 networkConnectionsConfig.ConfigureNetworkConnections();
                 ProxySettings upstreamProxySettings = networkConnectionsConfig.UpstreamProxySettings;
                 fiddlerCoreConfig.ConfigureFiddlerCore(upstreamProxySettings);
-
             }
 
             httpClientConfig.ConfigureHttpClient(UseFiddlerCore ? fiddlerCoreConfig.ListenPort : (ushort)0);
