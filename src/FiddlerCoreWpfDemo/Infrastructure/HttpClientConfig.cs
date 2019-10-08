@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FiddlerCoreWpfDemo.Infrastructure
 {
@@ -13,6 +9,14 @@ namespace FiddlerCoreWpfDemo.Infrastructure
 
         public void ConfigureHttpClient(ushort fiddlerCorePort)
         {
+            
+            if (fiddlerCorePort == 0) // FiddlerCore is not used
+            {
+                // Please, provide your proxy settings if needed.
+                HttpClient = new HttpClient();
+                return;
+            }
+
             HttpClient = new HttpClient(
                 new HttpClientHandler()
                 {

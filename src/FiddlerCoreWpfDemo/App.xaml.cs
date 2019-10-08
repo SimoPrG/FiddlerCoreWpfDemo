@@ -10,8 +10,12 @@ namespace FiddlerCoreWpfDemo
     /// </summary>
     public partial class App : Application
     {
-        private readonly NetworkConnectionsConfig networkConnectionsConfig = new NetworkConnectionsConfig();
-        private readonly FiddlerCoreConfig fiddlerCoreConfig = new FiddlerCoreConfig();
+        /// <summary>
+        /// You can toggle this const in order to execute performance tests with and without FiddlerCore
+        /// </summary>
+        private const bool UseFiddlerCore = true;
+        private readonly NetworkConnectionsConfig networkConnectionsConfig = UseFiddlerCore ? new NetworkConnectionsConfig() : null;
+        private readonly FiddlerCoreConfig fiddlerCoreConfig = UseFiddlerCore ? new FiddlerCoreConfig() : null;
         private readonly HttpClientConfig httpClientConfig = new HttpClientConfig();
 
         /// <summary>
@@ -30,21 +34,27 @@ namespace FiddlerCoreWpfDemo
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            networkConnectionsConfig.ConfigureNetworkConnections();
+            if (UseFiddlerCore)
+            {
+                networkConnectionsConfig.ConfigureNetworkConnections();
+                ProxySettings upstreamProxySettings = networkConnectionsConfig.UpstreamProxySettings;
+                fiddlerCoreConfig.ConfigureFiddlerCore(upstreamProxySettings);
 
-            ProxySettings upstreamProxySettings = networkConnectionsConfig.UpstreamProxySettings;
-            fiddlerCoreConfig.ConfigureFiddlerCore(upstreamProxySettings);
+            }
 
-            httpClientConfig.ConfigureHttpClient(fiddlerCoreConfig.ListenPort);
+            httpClientConfig.ConfigureHttpClient(UseFiddlerCore ? fiddlerCoreConfig.ListenPort : (ushort)0);
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             httpClientConfig.Dispose();
 
-            fiddlerCoreConfig.Dispose();
+            if (UseFiddlerCore)
+            {
+                fiddlerCoreConfig.Dispose();
 
-            networkConnectionsConfig.Dispose();
+                networkConnectionsConfig.Dispose();
+            }
         }
     }
 }
