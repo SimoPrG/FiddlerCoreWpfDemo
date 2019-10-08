@@ -1,15 +1,13 @@
-﻿using System.Net.Http;
+﻿using FiddlerCoreWpfDemo.Infrastructure;
 using System.Threading.Tasks;
 
 namespace FiddlerCoreWpfDemo.Services
 {
     public class HttpClientService : IHttpClientService
     {
-        private readonly HttpClient httpClient = new HttpClient();
-
         public async Task<string> GetAsync(string uri)
         {
-            var response = await this.httpClient.GetAsync(uri);
+            var response = await HttpClientConfig.HttpClient.GetAsync(uri);
 
             return
 $@"Request:
