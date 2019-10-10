@@ -6,9 +6,9 @@ using System.Reflection;
 
 using Telerik.NetworkConnections;
 
-namespace FiddlerCoreWpfDemo.Infrastructure
+namespace Infrastructure
 {
-    class NetworkConnectionsConfig : IDisposable
+    internal class NetworkConnectionsConfig : IDisposable
     {
         private const string DefaultNetworkConnectionNamespace = "WinINet";
         private const string DefaultNetworkConnectionName = "DefaultLAN";

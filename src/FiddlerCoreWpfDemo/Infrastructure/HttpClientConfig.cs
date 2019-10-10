@@ -7,23 +7,9 @@ namespace FiddlerCoreWpfDemo.Infrastructure
     {
         public static HttpClient HttpClient { get; private set; }
 
-        public void ConfigureHttpClient(ushort fiddlerCorePort)
+        public void ConfigureHttpClient()
         {
-            
-            if (fiddlerCorePort == 0) // FiddlerCore is not used
-            {
-                // Please, provide your proxy settings if needed.
-                HttpClient = new HttpClient();
-                return;
-            }
-
-            HttpClient = new HttpClient(
-                new HttpClientHandler()
-                {
-                    AllowAutoRedirect = true,
-                    Proxy = new HttpClientProxy(fiddlerCorePort),
-                    UseProxy = true
-                });
+            HttpClient = new HttpClient();
         }
 
         public void Dispose()

@@ -37,18 +37,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetZip, Version=1.13.4.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetZip.1.13.4\lib\net40\DotNetZip.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="FiddlerCore4, Version=4.6.20191.7809, Culture=neutral, PublicKeyToken=67cb91587178ac5a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\FiddlerCore4.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -62,10 +54,6 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Telerik.NetworkConnections, Version=0.1.1.0, Culture=neutral, PublicKeyToken=67cb91587178ac5a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\NetworkConnections\Telerik.NetworkConnections.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -76,15 +64,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Behavior\RelayCommand.cs" />
-    <Compile Include="Infrastructure\Common.cs" />
-    <Compile Include="Infrastructure\FiddlerCoreConfig.cs" />
     <Compile Include="Infrastructure\HttpClientConfig.cs" />
-    <Compile Include="Infrastructure\HttpClientProxy.cs" />
-    <Compile Include="Infrastructure\NetworkConnectionsConfig.cs" />
-    <Compile Include="Infrastructure\SAZProvider.cs" />
-    <Compile Include="Infrastructure\SAZReader.cs" />
-    <Compile Include="Infrastructure\SAZWriter.cs" />
-    <Compile Include="Infrastructure\SessionsPersister.cs" />
     <Compile Include="Services\HttpClientService.cs" />
     <Compile Include="Services\IHttpClientService.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -124,17 +104,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="lib\BCMakeCert.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lib\CertMaker.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lib\FiddlerCore4.dll" />
-    <None Include="lib\NetworkConnections\Telerik.NetworkConnections.dll" />
-    <None Include="lib\NetworkConnections\Telerik.NetworkConnections.Windows.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\AppProxy\AppProxy.csproj">
+      <Project>{b3f70a05-14f0-4d4b-9621-1d43c4e171f1}</Project>
+      <Name>AppProxy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{318b750b-106f-46f5-8580-02b30c4d814d}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

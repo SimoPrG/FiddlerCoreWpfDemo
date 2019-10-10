@@ -6,9 +6,9 @@ using System.Diagnostics;
 
 using Fiddler;
 
-namespace FiddlerCoreWpfDemo.Infrastructure
+namespace Infrastructure
 {
-    class SAZReader : ISAZReader
+    internal class SAZReader : ISAZReader
     {
         private ZipFile _oZip;
         private string _sPassword;

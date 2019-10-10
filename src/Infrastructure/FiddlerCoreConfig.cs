@@ -5,9 +5,9 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using Telerik.NetworkConnections;
 
-namespace FiddlerCoreWpfDemo.Infrastructure
+namespace Infrastructure
 {
-    public class FiddlerCoreConfig : IDisposable
+    internal class FiddlerCoreConfig : IDisposable
     {
         private readonly SessionsPersister sessionsPersister = new SessionsPersister();
 

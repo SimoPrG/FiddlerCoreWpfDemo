@@ -6,9 +6,9 @@ using System.Diagnostics;
 
 using Fiddler;
 
-namespace FiddlerCoreWpfDemo.Infrastructure
+namespace Infrastructure
 {
-    class SAZWriter : ISAZWriter
+    internal class SAZWriter : ISAZWriter
     {
         private ZipFile _oZip;
 

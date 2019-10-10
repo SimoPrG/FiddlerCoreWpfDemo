@@ -2,9 +2,9 @@
 
 using Fiddler;
 
-namespace FiddlerCoreWpfDemo.Infrastructure
+namespace Infrastructure
 {
-    class SAZProvider : ISAZProvider
+    internal class SAZProvider : ISAZProvider
     {
         public static Func<string> fnObtainPwd
         {
