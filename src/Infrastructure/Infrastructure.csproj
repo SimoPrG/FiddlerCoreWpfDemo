@@ -64,6 +64,7 @@
     <Compile Include="SAZReader.cs" />
     <Compile Include="SAZWriter.cs" />
     <Compile Include="SessionsPersister.cs" />
+    <Compile Include="UpstreamProxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using FiddlerCoreWpfDemo.Behavior;
 using FiddlerCoreWpfDemo.Services;
+using Infrastructure;
 
 namespace FiddlerCoreWpfDemo.ViewModels
 {
@@ -23,9 +24,16 @@ namespace FiddlerCoreWpfDemo.ViewModels
 
         public bool Capture
         {
-            get;
-            set;
-        } = true;
+            get
+            {
+                return Configuration.Instance.Capture;
+            }
+
+            set
+            {
+                Configuration.Instance.Capture = value;
+            }
+        }
 
         public string Url { get; set; } = "https://www.telerik.com/";
 
