@@ -21,6 +21,12 @@ namespace FiddlerCoreWpfDemo.ViewModels
             this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
+        public bool Capture
+        {
+            get;
+            set;
+        } = true;
+
         public string Url { get; set; } = "https://www.telerik.com/";
 
         public string Response

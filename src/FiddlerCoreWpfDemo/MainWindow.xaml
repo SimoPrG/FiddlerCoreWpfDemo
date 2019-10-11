@@ -18,12 +18,16 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding Url}" Height="23" TextWrapping="Wrap" Margin="10, 10, 5, 5" />
-            <Button Grid.Column="1" Command="{Binding Get}" Content="GET" Height="23" Width="75" Margin="5, 10, 10, 5"/>
+            <CheckBox Grid.Column="0" IsChecked="{Binding Capture}" Height="23" Margin="10, 10, 0, 0" />
+            <TextBlock Grid.Column="1" Text="Capture" Height="23" Margin="5, 10, 0, 0" />
+            <TextBox Grid.Column="2" Text="{Binding Url}" Height="23" TextWrapping="Wrap" Margin="10, 10, 5, 5" />
+            <Button Grid.Column="3" Command="{Binding Get}" Content="GET" Height="23" Width="75" Margin="5, 10, 10, 5"/>
         </Grid>
         
         <TextBox Grid.Row="1" Text="{Binding Response}" Margin="10, 5, 10, 10" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" IsReadOnly="True"/>
