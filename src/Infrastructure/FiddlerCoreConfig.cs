@@ -1,8 +1,7 @@
-﻿using Fiddler;
-using System;
+﻿using System;
 using System.IO;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
+
+using Fiddler;
 using Telerik.NetworkConnections;
 
 namespace Infrastructure
@@ -14,8 +13,6 @@ namespace Infrastructure
         public void ConfigureFiddlerCore(ProxySettings upstreamProxySettings)
         {
             this.EnsureRootCertificate();
-
-            this.SetSAZProvider();
 
             FiddlerApplication.BeforeRequest += this.sessionsPersister.AddSession;
 
@@ -42,8 +39,6 @@ namespace Infrastructure
 
         private void EnsureRootCertificate()
         {
-            string certMakerPath = Path.Combine(Common.AssemblyDir, "lib", "CertMaker.dll");
-            FiddlerApplication.Prefs.SetStringPref("fiddler.certmaker.assembly", certMakerPath);
             CertMaker.EnsureReady();
             ICertificateProvider5 certificateProvider = (ICertificateProvider5)CertMaker.oCertProvider;
 
@@ -59,32 +54,10 @@ namespace Infrastructure
                 certificateProvider.WriteRootCertificateAndPrivateKeyToPkcs12File(rootCertificatePath, rootCertificatePassword);
             }
 
-            X509Certificate2 rootCertificate = CertMaker.GetRootCertificate();
-
-            X509Store store = new X509Store(StoreName.Root, StoreLocation.CurrentUser);
-            try
+            if (!certificateProvider.rootCertIsTrusted(out bool userTrusted, out bool machineTrusted))
             {
-                store.Open(OpenFlags.MaxAllowed);
-
-                bool containsCertificate = store.Certificates.Contains(rootCertificate);
-                if (!containsCertificate)
-                {
-                    store.Add(rootCertificate);
-                }
+                certificateProvider.TrustRootCertificate();
             }
-            catch (CryptographicException ex)
-            {
-                // Handle the exception when the user did not trust the root certificate.
-            }
-            finally
-            {
-                store.Close();
-            }
-        }
-
-        private void SetSAZProvider()
-        {
-            FiddlerApplication.oSAZProvider = new SAZProvider();
         }
     }
 }

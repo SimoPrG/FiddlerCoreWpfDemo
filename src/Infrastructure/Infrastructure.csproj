@@ -34,24 +34,27 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCMakeCert, Version=2.0.9.0, Culture=neutral, PublicKeyToken=67cb91587178ac5a, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCMakeCert.2.0.9\lib\net40\BCMakeCert.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetZip, Version=1.13.4.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.13.4\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
-    <Reference Include="FiddlerCore4, Version=4.6.20191.7809, Culture=neutral, PublicKeyToken=67cb91587178ac5a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\FiddlerCore4.dll</HintPath>
+    <Reference Include="FiddlerCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=67cb91587178ac5a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FiddlerCore.Trial.5.0.0\lib\net45\FiddlerCore.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Telerik.NetworkConnections, Version=0.1.1.0, Culture=neutral, PublicKeyToken=67cb91587178ac5a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\NetworkConnections\Telerik.NetworkConnections.dll</HintPath>
+    <Reference Include="Telerik.NetworkConnections, Version=0.2.0.0, Culture=neutral, PublicKeyToken=67cb91587178ac5a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.NetworkConnections.0.2.0\lib\net40\Telerik.NetworkConnections.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -60,9 +63,6 @@
     <Compile Include="FiddlerCoreConfig.cs" />
     <Compile Include="NetworkConnectionsConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SAZProvider.cs" />
-    <Compile Include="SAZReader.cs" />
-    <Compile Include="SAZWriter.cs" />
     <Compile Include="SessionsPersister.cs" />
     <Compile Include="UpstreamProxy.cs" />
   </ItemGroup>
@@ -70,17 +70,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="lib\BCMakeCert.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lib\CertMaker.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="lib\FiddlerCore4.dll" />
-    <None Include="lib\NetworkConnections\Telerik.NetworkConnections.dll" />
-    <None Include="lib\NetworkConnections\Telerik.NetworkConnections.Windows.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="BasicFormatsForCore.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,32 +1,21 @@
 ﻿using System;
-using System.ComponentModel.Composition.Hosting;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 
 using Telerik.NetworkConnections;
+using Telerik.NetworkConnections.Windows;
 
 namespace Infrastructure
 {
     internal class NetworkConnectionsConfig : IDisposable
     {
-        private const string DefaultNetworkConnectionNamespace = "WinINet";
-        private const string DefaultNetworkConnectionName = "DefaultLAN";
-
-        private CompositionContainer compositionContainer;
         private NetworkConnectionsManager networkConnectionsManager;
 
         public void ConfigureNetworkConnections()
         {
-            string networkConnectionsDir = Path.Combine(Common.AssemblyDir, "lib", "NetworkConnections");
-
-            using (AssemblyCatalog networkConnectionsManagerCatalog = new AssemblyCatalog(typeof(NetworkConnectionsManager).Assembly))
-            using (DirectoryCatalog networkConnectionsCatalog = new DirectoryCatalog(networkConnectionsDir))
-            using (AggregateCatalog aggregateCatalog = new AggregateCatalog(networkConnectionsManagerCatalog, networkConnectionsCatalog))
+            this.networkConnectionsManager = new NetworkConnectionsManager(new[]
             {
-                this.compositionContainer = new CompositionContainer(aggregateCatalog);
-                this.networkConnectionsManager = compositionContainer.GetExportedValue<NetworkConnectionsManager>();
-            }
+                new WinINetNetworkConnectionsDetector()
+            });
 
             this.networkConnectionsManager.ProxySettingsChanged += NetworkConnectionsManager_ProxySettingsChanged;
 
@@ -40,14 +29,10 @@ namespace Infrastructure
 
         public void Dispose()
         {
-            if (!ReferenceEquals(this.compositionContainer, null))
-            {
-                this.compositionContainer.Dispose();
-            }
-
             if (!ReferenceEquals(this.networkConnectionsManager, null))
             {
                 this.networkConnectionsManager.ProxySettingsChanged -= NetworkConnectionsManager_ProxySettingsChanged;
+                this.networkConnectionsManager.Dispose();
             }
         }
 
@@ -58,23 +43,18 @@ namespace Infrastructure
 
         private void NetworkConnectionsManager_ProxySettingsChanged(object sender, ProxySettingsChangedEventArgs e)
         {
-            if (e.NetworkConnectionFullName.Namespace == DefaultNetworkConnectionNamespace &&
-                e.NetworkConnectionFullName.Name == DefaultNetworkConnectionName)
-            {
-                this.UpdateUpstreamProxySettings();
-                this.OnUpstreamProxySettingsChanged(EventArgs.Empty);
-            }
+            this.UpdateUpstreamProxySettings();
+            this.OnUpstreamProxySettingsChanged(EventArgs.Empty);
         }
 
         private void UpdateUpstreamProxySettings()
         {
-            var networkConnectionNames = this.networkConnectionsManager.GetAllConnectionFullNames();
+            var connectionName = this.networkConnectionsManager
+                .GetAllConnectionFullNames()
+                .First();
 
             this.UpstreamProxySettings = this.networkConnectionsManager
-                .GetCurrentProxySettingsForConnection(networkConnectionNames
-                .First(n =>
-                n.Namespace == DefaultNetworkConnectionNamespace &&
-                n.Name == DefaultNetworkConnectionName));
+                .GetCurrentProxySettingsForConnection(connectionName);
         }
     }
 }

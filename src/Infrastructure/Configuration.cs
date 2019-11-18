@@ -5,15 +5,13 @@ using Telerik.NetworkConnections;
 
 namespace Infrastructure
 {
-    public class Configuration : IDisposable
+    public sealed class Configuration : IDisposable
     {
         private const string HttpScheme = "http";
         private const string Localhost = "127.0.0.1";
 
         private bool capture = true;
         private readonly ReaderWriterLockSlim captureLock = new ReaderWriterLockSlim();
-
-        private static Configuration instance;
         private readonly NetworkConnectionsConfig networkConnectionsConfig = new NetworkConnectionsConfig();
         private readonly FiddlerCoreConfig fiddlerCoreConfig = new FiddlerCoreConfig();
 
@@ -24,18 +22,7 @@ namespace Infrastructure
             fiddlerCoreConfig.ConfigureFiddlerCore(upstreamProxySettings);
         }
 
-        public static Configuration Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new Configuration();
-                }
-
-                return instance;
-            }
-        }
+        public static Configuration Instance { get; } = new Configuration();
 
         public bool Capture
         {
