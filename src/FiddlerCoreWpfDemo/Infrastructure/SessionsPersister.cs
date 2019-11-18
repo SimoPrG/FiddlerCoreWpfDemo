@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Infrastructure
+namespace FiddlerCoreWpfDemo.Infrastructure
 {
     internal class SessionsPersister
     {

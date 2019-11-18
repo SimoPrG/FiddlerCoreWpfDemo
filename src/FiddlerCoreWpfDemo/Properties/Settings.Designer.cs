@@ -22,5 +22,14 @@ namespace FiddlerCoreWpfDemo.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8866")]
+        public ushort FiddlerCoreListenPort {
+            get {
+                return ((ushort)(this["FiddlerCoreListenPort"]));
+            }
+        }
     }
 }

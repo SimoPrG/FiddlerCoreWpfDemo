@@ -2,7 +2,8 @@
 using System.Windows.Input;
 using FiddlerCoreWpfDemo.Behavior;
 using FiddlerCoreWpfDemo.Services;
-using Infrastructure;
+
+using FiddlerCoreWpfDemo.Infrastructure;
 
 namespace FiddlerCoreWpfDemo.ViewModels
 {
@@ -34,6 +35,8 @@ namespace FiddlerCoreWpfDemo.ViewModels
                 Configuration.Instance.Capture = value;
             }
         }
+
+        public string CaptureOnPort => $"Capture on {Configuration.Instance.ListenPort}";
 
         public string Url { get; set; } = "https://www.telerik.com/";
 

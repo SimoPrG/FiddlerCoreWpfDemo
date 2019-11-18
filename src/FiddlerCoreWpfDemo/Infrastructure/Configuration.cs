@@ -3,7 +3,7 @@ using System.Net;
 using System.Threading;
 using Telerik.NetworkConnections;
 
-namespace Infrastructure
+namespace FiddlerCoreWpfDemo.Infrastructure
 {
     public sealed class Configuration : IDisposable
     {
@@ -52,6 +52,8 @@ namespace Infrastructure
                 }
             }
         }
+
+        public ushort ListenPort => fiddlerCoreConfig.ListenPort;
 
         public Uri ProxyUri => new Uri($"{HttpScheme}://{Localhost}:{fiddlerCoreConfig.ListenPort}");
 

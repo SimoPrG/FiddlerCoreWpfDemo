@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net;
 
-using Infrastructure;
+using FiddlerCoreWpfDemo.Infrastructure;
 
-namespace AppProxy
+namespace FiddlerCoreWpfDemo.Proxy
 {
     public class FiddlerCoreWebProxy : IWebProxy
     {

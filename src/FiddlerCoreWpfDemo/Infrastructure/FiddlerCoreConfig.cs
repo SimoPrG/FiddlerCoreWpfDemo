@@ -4,7 +4,9 @@ using System.IO;
 using Fiddler;
 using Telerik.NetworkConnections;
 
-namespace Infrastructure
+using FiddlerCoreWpfDemo.Properties;
+
+namespace FiddlerCoreWpfDemo.Infrastructure
 {
     internal class FiddlerCoreConfig : IDisposable
     {
@@ -20,6 +22,7 @@ namespace Infrastructure
 
             FiddlerCoreStartupSettings startupSettings =
                 new FiddlerCoreStartupSettingsBuilder()
+                    .ListenOnPort(Settings.Default.FiddlerCoreListenPort)
                     .SetUpstreamProxySettingsTo(upstreamProxySettings)
                     .DecryptSSL()
                     .Build();

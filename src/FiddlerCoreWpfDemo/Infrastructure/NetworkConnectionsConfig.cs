@@ -4,7 +4,7 @@ using System.Linq;
 using Telerik.NetworkConnections;
 using Telerik.NetworkConnections.Windows;
 
-namespace Infrastructure
+namespace FiddlerCoreWpfDemo.Infrastructure
 {
     internal class NetworkConnectionsConfig : IDisposable
     {

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Reflection;
 
-namespace Infrastructure
+namespace FiddlerCoreWpfDemo.Infrastructure
 {
     internal static class Common
     {

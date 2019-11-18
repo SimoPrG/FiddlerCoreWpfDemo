@@ -2,7 +2,6 @@
 using System.Windows.Threading;
 
 using FiddlerCoreWpfDemo.Infrastructure;
-using Infrastructure;
 
 namespace FiddlerCoreWpfDemo
 {
